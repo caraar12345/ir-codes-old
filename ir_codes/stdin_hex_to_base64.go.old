@@ -1,0 +1,24 @@
+package stdin_hex_to_base64
+
+import (
+	b64 "encoding/base64"
+	"encoding/hex"
+	"fmt"
+	"log"
+	"os"
+)
+
+func main() {
+	args := os.Args
+	if len(args) != 2 {
+		log.Fatalf("usage: %s <hex_data_without_spaces>\n", args[0])
+	}
+
+	hexData, err := hex.DecodeString(args[1])
+	if err != nil {
+		log.Fatalln("Invalid hex data.")
+	}
+
+	b64Encoded := b64.StdEncoding.EncodeToString([]byte(hexData))
+	fmt.Println(b64Encoded)
+}
